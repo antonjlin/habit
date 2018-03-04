@@ -34,10 +34,21 @@ def rawStamp():
 	timestamp = datetime.now().strftime("%H:%M:%S")
 	return timestamp
 
-def xlpFormat():
-	print('\n\n\n')
-	print('          -------------------------------------------')
-	print('           OFF-WHITE JORDAN 1 EXCELSIOR RAFFLE SCRIPT')
-	print('                WRITTEN BY ANTON - @THESOLECOP      ')
-	print('          -------------------------------------------')
-	print('\n')
+
+def generateEmails(username, domain):
+	email = ""
+	username_length = len(username)
+	combinations = pow(2, username_length - 1)
+	padding = "{0:0" + str(username_length - 1) + "b}"
+	for i in range(0, combinations):
+		bin = padding.format(i)
+		full_email = ""
+		for j in range(0, username_length - 1):
+			full_email += (username[j]);
+			if bin[j] == "1":
+				full_email += "."
+		full_email += (username[j + 1])
+		email = full_email + '@' + domain
+		global emails
+		emails.append(email)
+		print(emails)
